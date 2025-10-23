@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# VS Code
+.vscode/
+.devcontainer/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Results, generated files and caches
+results/*
+solutions/generated/
+.pytest_cache/
+pip-wheel-metadata/
+
+# Local configs
+.env
+
+# Instance files
+instances/all/*
+instances/test/*
+
+# Solvers
+solvers/*

@@ -1,0 +1,7 @@
+.git
+.vscode
+.venv
+results/
+solutions/generated/
+__pycache__/
+*.pyc
