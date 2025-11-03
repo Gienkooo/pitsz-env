@@ -72,7 +72,7 @@ def run_benchmarks(solvers: List[Path]) -> Dict[str, Dict[str, Any]]:
             command = ['python3'] + command_base if solver_path.suffix == '.py' else command_base
             
             status = ""
-            cmax = None
+            sum_uj = None
             exec_time = 0.0
 
             start_time = time.monotonic()
@@ -95,7 +95,7 @@ def run_benchmarks(solvers: List[Path]) -> Dict[str, Dict[str, Any]]:
                     )
                     if verify_proc.returncode == 0:
                         status = "OK"
-                        cmax = int(verify_proc.stdout.strip())
+                        sum_uj = int(verify_proc.stdout.strip())
                         print(f"    {TColor.OKGREEN}Status: {status}, Cmax: {cmax}{TColor.ENDC} in {exec_time:.4f}s")
                     else:
                         status = "INVALID"
@@ -112,7 +112,7 @@ def run_benchmarks(solvers: List[Path]) -> Dict[str, Dict[str, Any]]:
                 print(f"    {TColor.FAIL}Status: {status}{TColor.ENDC} after {exec_time:.4f}s")
 
             results[instance_path.name][solver_name] = {
-                'result': cmax if status == "OK" else status,
+                'result': sum_uj if status == "OK" else status,
                 'time': exec_time if status != "TIMEOUT" else time_limit
             }
     return results
@@ -120,16 +120,15 @@ def run_benchmarks(solvers: List[Path]) -> Dict[str, Dict[str, Any]]:
 def generate_reports(results: Dict[str, Dict[str, Any]], solvers: List[Path]):
     print(f"\n{TColor.HEADER}--- Generating Reports for Excel ---{TColor.ENDC}")
     solver_names = [s.name for s in solvers]
-    
-    # --- Cmax CSV Report ---
-    cmax_path = RESULTS_DIR / 'results_cmax.csv'
-    with open(cmax_path, 'w', newline='') as f:
+
+    sum_uj_path = RESULTS_DIR / 'results_sum_uj.csv'
+    with open(sum_uj_path, 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(['Instance'] + solver_names)
         for instance_name, solver_results in sorted(results.items()):
             row = [instance_name] + [solver_results.get(name, {}).get('result', 'N/A') for name in solver_names]
             writer.writerow(row)
-    print(f"  {TColor.OKGREEN}✓{TColor.ENDC} Wrote Cmax results to: {cmax_path}")
+    print(f"  {TColor.OKGREEN}✓{TColor.ENDC} Wrote SumUj results to: {sum_uj_path}")
 
     # --- Time CSV Report ---
     time_path = RESULTS_DIR / 'results_time.csv'
