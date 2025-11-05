@@ -96,7 +96,7 @@ def run_benchmarks(solvers: List[Path]) -> Dict[str, Dict[str, Any]]:
                     if verify_proc.returncode == 0:
                         status = "OK"
                         sum_uj = int(verify_proc.stdout.strip())
-                        print(f"    {TColor.OKGREEN}Status: {status}, Cmax: {cmax}{TColor.ENDC} in {exec_time:.4f}s")
+                        print(f"    {TColor.OKGREEN}Status: {status}, SumUj: {sum_uj}{TColor.ENDC} in {exec_time:.4f}s")
                     else:
                         status = "INVALID"
                         details = verify_proc.stderr.strip().replace("ERROR: ", "")
