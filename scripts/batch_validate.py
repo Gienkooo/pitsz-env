@@ -49,7 +49,7 @@ def main():
             print(f"  [WARN] No instance files found for size {size}.")
             continue
 
-        print(f"  {'Instance':<30} {'Status':<10} {'Details / Cmax'}")
+        print(f"  {'Instance':<30} {'Status':<10} {'Details / Uj'}")
         print("  " + "-" * 70)
 
         for inst_path in sorted(matching_instances):
@@ -60,7 +60,7 @@ def main():
                     capture_output=True, text=True, check=True, timeout=30
                 )
                 status = "OK"
-                details = f"Cmax: {proc.stdout.strip()}"
+                details = f"Uj: {proc.stdout.strip()}"
             except subprocess.CalledProcessError as e:
                 status = "FAIL"
                 details = e.stderr.strip().replace('ERROR: ', '')
