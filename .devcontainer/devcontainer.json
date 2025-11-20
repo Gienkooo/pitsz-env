@@ -1,0 +1,26 @@
+{
+    "name": "Contest Benchmarking Environment",
+    // Tells VS Code to build the image from the Dockerfile in the parent directory
+    "build": {
+        "dockerfile": "../Dockerfile"
+    },
+    // Mount the entire project folder into the /app directory inside the container
+    "mounts": [
+        "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached"
+    ],
+    // The default directory to open inside the container
+    "workspaceFolder": "/app",
+    // Run commands as the root user
+    "remoteUser": "root",
+    // Forward thinking: Add useful extensions for C++ and Python
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cmake-tools",
+                "ms-python.python",
+                "ms-python.vscode-pylance"
+            ]
+        }
+    }
+}
