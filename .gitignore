@@ -16,7 +16,6 @@ ENV/
 
 # VS Code
 .vscode/
-.devcontainer/
 
 # OS
 .DS_Store
